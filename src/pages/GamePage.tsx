@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import "../css/Game.css";
 
@@ -62,6 +62,28 @@ export function GamePage({ addGameData }: GameProps) {
     }
   }
 
+  useEffect(() => {
+    if(gameEndPopup) {
+      const gameEndData = {
+        layout: layoutIndex,
+        moves: moves,
+        handLengths: handLengths,
+        maxHandLength: handLengths.length === 0 ? 0 : Math.max(...handLengths)
+      }
+      console.log(gameEndData)
+      window.parent.postMessage({
+        type: 'gameArr',
+        data: {
+          layout: layoutIndex,
+          moves: moves,
+          handLengths: handLengths,
+          maxHandLength: handLengths.length === 0 ? 0 : Math.max(...handLengths)
+        }
+      }, '*');
+    }
+  }, [gameEndPopup]); 
+
+
   return (
     <div className='page'>
       <Board board={board} takeCard={takeCard} />
@@ -75,11 +97,12 @@ export function GamePage({ addGameData }: GameProps) {
             Hand Lengths: {handLengths}<br />
             Max Hand Used: {handLengths.length === 0 ? 0 : Math.max(...handLengths)}
           </h3>
-          <button id='next-layout' onClick={() => navigate('/')}>
+          {/* <button id='next-layout' onClick={() => navigate('/')}>
             <p>
               Back to Start
             </p>
-          </button>
+          </button> */}
+          <p>Thanks for taking part in the game! You can now click the next page button to exit the survey.</p>
         </EndPopup>) :
         null
       }

@@ -22,5 +22,14 @@ export const layouts: LayoutType[] = [
       '2245234',
     ],
     elimNum: 3
-  }
+  },
+  {
+    board:
+    [
+      '1322',
+      '2314',
+      '4431',
+    ],
+    elimNum: 3
+  },
 ]

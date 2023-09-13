@@ -7,13 +7,19 @@ export function StartPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const [layoutIndex, setLayoutIndex] = useState('0')
+  const [currGame, setCurrGame] = useState('1');
 
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const layoutIndexFromUrl = params.get('layoutIndex');
+    const currGameFromUrl = params.get('currGame') // repeat game three times -> 1, 2, 3
 
     if (layoutIndexFromUrl !== null) {
       setLayoutIndex(layoutIndexFromUrl)
+    }
+
+    if (currGameFromUrl !== null) {
+      setCurrGame(currGameFromUrl);
     }
   }, [location.search]);
 
@@ -32,7 +38,7 @@ export function StartPage() {
             </p>
           </button>
         )} */}
-        <button id='start-btn' onClick={() => navigate(layoutIndex.toString())}><p>Start</p></button>
+        <button id='start-btn' onClick={() => navigate(`${layoutIndex.toString()}?currGame=${currGame}`)}><p>Start</p></button>
       </div>
     </div>
   );

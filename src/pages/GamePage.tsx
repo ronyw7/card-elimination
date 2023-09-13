@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import "../css/Game.css";
 
 import { Board } from "../components/Board";
@@ -16,10 +16,16 @@ const colors = ['red', 'green', 'blue', 'yellow', 'violet', 'orange', 'cyan'];
 
 export function GamePage({ addGameData }: GameProps) {
   const { layoutIndexStr } = useParams();
+  
   const navigate = useNavigate();
+  const location = useLocation();
 
   const layoutIndex = Number(layoutIndexStr);
-  console.log(layoutIndex);
+
+  const params = new URLSearchParams(location.search);
+  const currGameFromUrl = params.get('currGame');
+  const currGame = Number(currGameFromUrl)
+
 
   const startingHand: HandObject = colors.reduce((obj, color) => ({ ...obj, [color]: 0 }), {});
 
@@ -66,19 +72,15 @@ export function GamePage({ addGameData }: GameProps) {
     if(gameEndPopup) {
       const gameEndData = {
         layout: layoutIndex,
+        currGame: currGame,
         moves: moves,
         handLengths: handLengths,
         maxHandLength: handLengths.length === 0 ? 0 : Math.max(...handLengths)
       }
       console.log(gameEndData)
       window.parent.postMessage({
-        type: 'gameArr',
-        data: {
-          layout: layoutIndex,
-          moves: moves,
-          handLengths: handLengths,
-          maxHandLength: handLengths.length === 0 ? 0 : Math.max(...handLengths)
-        }
+        type: 'gameArr' + currGameFromUrl,
+        data: gameEndData
       }, '*');
     }
   }, [gameEndPopup]); 
@@ -102,7 +104,7 @@ export function GamePage({ addGameData }: GameProps) {
               Back to Start
             </p>
           </button> */}
-          <p>Thanks for taking part in the game! You can now click the next page button to exit the survey.</p>
+          <p>Thanks for playing! We have re-enabled the "next page" button, and you can now navigate to the next page.</p>
         </EndPopup>) :
         null
       }

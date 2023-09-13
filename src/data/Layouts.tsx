@@ -23,6 +23,8 @@ export const layouts: LayoutType[] = [
     ],
     elimNum: 3
   },
+  
+  // Demo Layout
   {
     board:
     [

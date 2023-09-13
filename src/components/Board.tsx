@@ -10,7 +10,7 @@ export function Board({ board, takeCard }: BoardProps) {
   return (
     <div id='board'>
       {board.map((cardColors, index) => <Row key={index} cardColors={cardColors} takeCard={() => takeCard(index)} />)}
-      <Timer />
+      {/* <Timer /> */}
     </div>
   )
 }

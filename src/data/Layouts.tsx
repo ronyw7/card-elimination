@@ -46,10 +46,15 @@ export const layouts: LayoutType[] = [
     elimNum: 3
   },
 
-  // eliminate green first or red first
+  // Index: [4] 
+  // Optimal: Eliminate the two red cards in the first row and the red card in the bottom row - 3
+  // Intuitive: Eliminate the blue cards in the bottom - 4
   {
     board:
-    ['333341', '232412', '412432', '321442', '421213', '414311'],
+    ['421331', 
+    '441224', 
+    '221433', 
+    '214313'],
     elimNum: 3
   },
 

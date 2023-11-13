@@ -4,8 +4,33 @@ export interface LayoutType {
 }
 
 export const layouts: LayoutType[] = [
-  {
+    // Index: [0]
+    // Easy Layout: Max Hand Used is 3 if following a good strategy, 8 if just randomly selecting the cards
+    {
+      board: [
+        '321424',
+        '132413',
+        '421331',
+        '314242'
+    ],
+    elimNum: 3
+    },
+
+    // Index: [1]
+    // Yellow + Red cards trick ppl into selecting suboptimal strategy that gives max length 4. Optimal is 3.
+    // If randomly selecting the cards the expected # is 6 - 9.
+    {
+      board: [
+        '315343',
+        '241114',
+        '423145',
+        '235134'
+      ],
+      elimNum: 3
+    },
+
     //
+  {
     board:
     [
       '131242',
@@ -25,6 +50,7 @@ export const layouts: LayoutType[] = [
     elimNum: 3
   },
   
+  // Index: [2]
   // Demo Layout
   {
     board:
@@ -51,19 +77,42 @@ export const layouts: LayoutType[] = [
   // Intuitive: Eliminate the blue cards in the bottom - 4
   {
     board:
-    ['421331', 
-    '441224', 
-    '221433', 
-    '214313'],
+    [
+      '421331', 
+      '441224', 
+      '221433', 
+      '214313'
+    ],
     elimNum: 3
   },
 
-    // eliminate red first or green first
+  // Index: [5]
+  {
+    board:
+    [
+      '341111', 
+      '421432', 
+      '323434', 
+      '334422'
+    ],
+    elimNum: 3
+  },
+
+    // Index: [6] eliminate red first or green first
     {
       board:
-      ['333341', '414311', '232412', '412432', '321442', '421213'],
+      [
+      '333341', 
+      '414311', 
+      '232412', 
+      '412432', 
+      '321442', 
+      '421213'
+    ],
       elimNum: 3
     },
+
+    
   
 
   

@@ -7,6 +7,7 @@ import './css/App.css';
 import { layouts } from './data/Layouts';
 import { Routes, Route } from 'react-router-dom';
 
+
 function App() {
   type PageType = 'start' | 'game' | 'end';
 

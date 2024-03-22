@@ -6,7 +6,7 @@ import { Board } from "../components/Board";
 import { Hand, HandObject } from "../components/Hand";
 import { EndPopup } from '../components/EndPopup';
 
-import { layouts } from '../data/Layouts';
+import { layouts, getCostMat } from '../data/Layouts';
 
 interface GameProps {
   addGameData(moveOrder: String, handLengths: number[]): void;
@@ -34,9 +34,11 @@ export function GamePage({ addGameData }: GameProps) {
   }
 
   const [board, setBoard] = useState(processBoard(layouts[layoutIndex].board));
+  const [costs, setCosts] = useState(getCostMat(layouts[layoutIndex].board));
   const [hand, setHand] = useState(startingHand);
   const [moves, setMoves] = useState("");
   const [handLengths, setHandLengths] = useState<number[]>([]);
+  const [totalCost, setTotalCost] = useState(0);
   const [gameEndPopup, setGameEndPopup] = useState(false);
 
   const takeCard = (rowId: number) => {
@@ -53,6 +55,9 @@ export function GamePage({ addGameData }: GameProps) {
 
         const newHandLengths = handLengths.concat([Object.keys(handCopy).reduce((total, key) => total + handCopy[key], 0)]);
         setHandLengths(newHandLengths);
+        const newTotalCost = totalCost + costs[rowId][boardCopy[rowId].length];
+        setTotalCost(newTotalCost);
+
 
         setHand(handCopy);
         setBoard(boardCopy);
@@ -75,7 +80,8 @@ export function GamePage({ addGameData }: GameProps) {
         currGame: currGame,
         moves: moves,
         handLengths: handLengths,
-        maxHandLength: handLengths.length === 0 ? 0 : Math.max(...handLengths)
+        maxHandLength: handLengths.length === 0 ? 0 : Math.max(...handLengths),
+        totalCost: totalCost,
       }
       console.log(gameEndData)
       window.parent.postMessage({
@@ -88,8 +94,8 @@ export function GamePage({ addGameData }: GameProps) {
 
   return (
     <div className='page'>
-      <Board board={board} takeCard={takeCard} />
-      <Hand hand={hand} maxHand={handLengths.length === 0 ? 0 : Math.max(...handLengths)} />
+      <Board board={board} costs={costs} takeCard={takeCard} />
+      <Hand hand={hand} maxHand={handLengths.length === 0 ? 0 : Math.max(...handLengths)} totalCost={totalCost}/>
       {
         gameEndPopup ?
         (<EndPopup>
@@ -97,7 +103,9 @@ export function GamePage({ addGameData }: GameProps) {
           <h3>
             Move Order: {moves}<br />
             Hand Lengths: {handLengths}<br />
-            Max Hand Used: {handLengths.length === 0 ? 0 : Math.max(...handLengths)}
+            Max Hand Used: {handLengths.length === 0 ? 0 : Math.max(...handLengths)}<br />
+            Total Cost: {totalCost}
+
           </h3>
           {/* <button id='next-layout' onClick={() => navigate('/')}>
             <p>

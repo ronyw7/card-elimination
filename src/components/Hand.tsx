@@ -7,10 +7,9 @@ export interface HandObject {
 interface HandProps {
   hand: HandObject;
   maxHand: number;
-  totalCost: number;
 }
 
-export function Hand({ hand, maxHand, totalCost }: HandProps) {
+export function Hand({ hand, maxHand }: HandProps) {
 
   const createHand = (hand: HandObject) => {
     const handCards = [];
@@ -29,8 +28,7 @@ export function Hand({ hand, maxHand, totalCost }: HandProps) {
     <div id='hand'>
       {hand ? createHand(hand) : null}
       <div id='max-hand-counter'>
-        {/* <h5>{`Total Cost: ${maxHand}`}</h5> */}
-         <h5>{`Total Cost: ${totalCost}`}</h5>
+        <h5>{`Max Hand Used: ${maxHand}`}</h5>
       </div>
     </div>
   )

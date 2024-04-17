@@ -94,17 +94,17 @@ export function GamePage({ addGameData }: GameProps) {
         gameEndPopup ?
         (<EndPopup>
           <h1>Nice!</h1>
-          <h3>
+          {/* <h3>
             Move Order: {moves}<br />
             Hand Lengths: {handLengths}<br />
             Max Hand Used: {handLengths.length === 0 ? 0 : Math.max(...handLengths)}
-          </h3>
+          </h3> */}
           {/* <button id='next-layout' onClick={() => navigate('/')}>
             <p>
               Back to Start
             </p>
           </button> */}
-          <p>Thanks for playing! We have re-enabled the "next page" button, and you can now navigate to the next page.</p>
+          <h3>Thanks for playing! We have re-enabled the "next page" button, and you can now navigate to the next page.</h3>
         </EndPopup>) :
         null
       }

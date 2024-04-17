@@ -6,7 +6,7 @@ export interface LayoutType {
 
 const minCostDefault = 0;
 const maxCostDefault = 3;
-const seedDefault = 2010;
+const seedDefault = 2030;
 
 // Updated to accept and update the seed
 function mulberry32(seed: number): () => number {

@@ -104,7 +104,7 @@ export function GamePage({ addGameData }: GameProps) {
               Back to Start
             </p>
           </button> */}
-          <h3>Thanks for playing! We have re-enabled the "next page" button, and you can now navigate to the next page.</h3>
+          <h3>Thanks for playing! We have re-enabled the button, and you can now navigate to the next page.</h3>
         </EndPopup>) :
         null
       }

@@ -1,15 +1,14 @@
 interface CardProps {
-  className?: string;
-  index?: number;
-  color?: string;
-  cost?: number;
-  onClick?(): void;
+  className?: string,
+  index?: number,
+  color?: string,
+  onClick?(): void
 }
 
-export function Card({ className, index, color, cost, onClick }: CardProps) {
+export function Card({ className, index, color, onClick }: CardProps) {
   const style = {
-    ...(color ? { backgroundColor: color } : {}),
-    ...(index ? { left: `${index * 75}px` } : {}),
+    ...(color ? {backgroundColor: color} : {}),
+    ...(index ? {left: `${index * 75}px`} : {})
   };
 
   return (
@@ -17,10 +16,6 @@ export function Card({ className, index, color, cost, onClick }: CardProps) {
       className={`card ${className}`}
       onClick={onClick ? onClick : () => {}}
       style={style}
-    >
-      {cost !== undefined && (
-        <span className="card-cost">{cost}</span>
-      )}
-    </div>
+    />
   );
 }

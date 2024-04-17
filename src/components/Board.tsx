@@ -1,18 +1,15 @@
 import { Card } from './Card';
 import { Timer } from './Timer';
-import { getRandInt } from '../data/Layouts';
 
 interface BoardProps {
   board: string[][],
-  costs: number[][],
   takeCard(rowId: number): void,
 }
 
-
-export function Board({ board, costs, takeCard }: BoardProps) {
+export function Board({ board, takeCard }: BoardProps) {
   return (
     <div id='board'>
-      {board.map((cardColors, index) => <Row key={index} cardColors={cardColors} cardCosts={costs[index]} takeCard={() => takeCard(index)} />)}
+      {board.map((cardColors, index) => <Row key={index} cardColors={cardColors} takeCard={() => takeCard(index)} />)}
       {/* <Timer /> */}
     </div>
   )
@@ -20,12 +17,11 @@ export function Board({ board, costs, takeCard }: BoardProps) {
 
 interface RowProps {
   cardColors: string[],
-  cardCosts: number[],
   takeCard(): void,
 }
 
-function Row({ cardColors, cardCosts, takeCard }: RowProps) {
-  const createCards = (cardColors: string[], cardCosts: number[]) => {
+function Row({ cardColors, takeCard }: RowProps) {
+  const createCards = (cardColors: string[]) => {
     const cards = [];
 
     for (let i = 0; i < cardColors.length - 1; i++) {
@@ -35,7 +31,6 @@ function Row({ cardColors, cardCosts, takeCard }: RowProps) {
           key={cards.length}
           index={cards.length}
           color={cardColors[i]}
-          cost={cardCosts[i]}
         />
       );
     }
@@ -46,7 +41,6 @@ function Row({ cardColors, cardCosts, takeCard }: RowProps) {
           key={cards.length}
           index={cards.length}
           color={cardColors[cardColors.length - 1]}
-          cost={cardCosts[cardColors.length - 1]}
           onClick={takeCard}
         />
       );
@@ -56,7 +50,6 @@ function Row({ cardColors, cardCosts, takeCard }: RowProps) {
           className="stack"
           key={cards.length}
           index={cards.length}
-          cost={cardCosts[cardColors.length - 1]}
         />
       );
     }
@@ -66,7 +59,7 @@ function Row({ cardColors, cardCosts, takeCard }: RowProps) {
 
   return (
     <div className='row'>
-      {createCards(cardColors, cardCosts)}
+      {createCards(cardColors)}
     </div>
   )
 }
